@@ -1,0 +1,46 @@
+{
+  "name": "Konstantin Mikov",
+  "job": "Junior web-developer",
+  "cards": [
+    {
+      "name": "Calm lake",
+      "url": "http://localhost:3344/cards/calmLake.jpg"
+    },
+    {
+      "name": "Autumn leaves",
+      "url": "http://localhost:3344/cards/autumnLeaves.jpg"
+    },
+    {
+      "name": "Coastal town",
+      "url": "http://localhost:3344/cards/city.jpg"
+    },
+    {
+      "name": "Morning forest",
+      "url": "http://localhost:3344/cards/forest.jpg"
+    },
+    {
+      "name": "Monument valley",
+      "url": "http://localhost:3344/cards/monumentValley.jpg"
+    },
+    {
+      "name": "Mountain river",
+      "url": "http://localhost:3344/cards/river.jpg"
+    },
+    {
+      "name": "Scenic road",
+      "url": "http://localhost:3344/cards/road.jpg"
+    },
+    {
+      "name": "Sandy valley",
+      "url": "http://localhost:3344/cards/valley.jpg"
+    },
+    {
+      "name": "European village",
+      "url": "http://localhost:3344/cards/village.jpg"
+    },
+    {
+      "name": "Misty waterside",
+      "url": "http://localhost:3344/cards/waterside.jpg"
+    }
+  ]
+}

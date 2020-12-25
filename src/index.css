@@ -1,0 +1,46 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+.root {
+  background-color: black;
+  min-height: 100vh;
+  font-family: 'Inter';
+  padding-bottom: 194px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 1024px) {
+  .root {
+    padding-bottom: 140px;
+  }
+}
+
+
+.root__section {
+  width: calc(100% - 400px);
+  margin: auto;
+}
+
+@media screen and (max-width: 980px) {
+  .root__section {
+    width: 90%;
+  }
+}
+
+
+.button {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  width: 150px;
+  height: 50px;
+  font-size: 30px;
+  display: block;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline-color: greenyellow;
+}
