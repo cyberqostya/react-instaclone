@@ -1,61 +1,83 @@
-import React from 'react';
+import React from "react";
+import { data } from "./data";
+import Header from "./Header/Header";
+import Profile from "./Profile/Profile";
+import CardContainer from "./CardContainer/CardContainer";
+import PopupImage from "./PopupImage/PopupImage";
+import PopupEdit from "./PopupEdit/PopupEdit";
+import PopupAdd from "./PopupAdd/PopupAdd";
 
-import Header from './Header/Header';
-import Profile from './Profile/Profile';
-import CardContainer from './CardContainer/CardContainer';
-import Popup from './Popup/Popup';
+const App = () => {
+  const [pictures, setPictures] = React.useState(data.pictures);
 
-const App = (props) => {
+  const [popupImageIsOpened, setPopupImageIsOpened] = React.useState(false);
+  const [urlImage, setUrlImage] = React.useState("");
 
+  const [popupEditIsOpened, setPopupEditIsOpened] = React.useState(false);
+  const [editedProfileData, setEditedProfileData] = React.useState(data);
 
-  // Открытие, закрытие попапа
-  const [popupIsOpened, setPopupIsOpened] = React.useState(false);
+  const [popupAddIsOpened, setPopupAddIsOpened] = React.useState(false);
 
+  const getIncompletePictures = (id) => {
+    const incompletePictures = pictures.filter((item) => {
+      return item.id !== id;
+    });
+    setPictures(incompletePictures);
+  };
 
-  // Какой попап отрисовывать
-  const [varietyOfPopup, setVarietyOfPopup] = React.useState('none');
+  const popupImageSelector = (url) => {
+    if (url) setUrlImage(url);
+    setPopupImageIsOpened(!popupImageIsOpened);
+  };
 
+  const editProfileData = (data) => {
+    setEditedProfileData(data);
+  };
 
-  // URL картинки на которую нажали
-  const [imageUrl, setImageUrl] = React.useState('');
+  const togglerPopupEdit = () => {
+    setPopupEditIsOpened(!popupEditIsOpened);
+  };
 
-  // Имя и род дейтельности для передачи из Profile в Popup в поля ввода при открытии попапа
-  const [userName, setUserName] = React.useState(props.data.name);
-  const [userJob, setUserJob] = React.useState(props.data.job);
+  const togglerPopupAdd = () => {
+    setPopupAddIsOpened(!popupAddIsOpened);
+  };
 
-  // Карточки для создания из попапа
-  let [newCards, setNewCards] = React.useState([]);
-
+  const addPicture = (pic) => {
+    pic.id = pictures[pictures.length-1].id + 1;
+    setPictures([...pictures, pic]);
+  };
 
   return (
     <>
       <Header />
-
-      <Profile 
-        userData={{userName, userJob}} 
-        setPopupIsOpened={setPopupIsOpened}
-        setVarietyOfPopup={setVarietyOfPopup}
+      <Profile
+        data={editedProfileData}
+        togglerPopupEdit={togglerPopupEdit}
+        togglerPopupAdd={togglerPopupAdd}
       />
-
       <CardContainer
-        cards={props.data.cards} 
-        setPopupIsOpened={setPopupIsOpened}
-        setVarietyOfPopup={setVarietyOfPopup}
-        setImageUrl={setImageUrl}
-        cardsArray={newCards}
+        pictures={pictures}
+        getIncompletePictures={getIncompletePictures}
+        popupImageSelector={popupImageSelector}
       />
 
-      {popupIsOpened && 
-      <Popup 
-        areaPopupHandler={setPopupIsOpened}
-        varietyOfPopup={varietyOfPopup}
-        imageUrl={imageUrl}
-        userData={{userName, userJob, setUserName, setUserJob}}
-        cards={{newCards, setNewCards}}
-      />}
+      {popupImageIsOpened && (
+        <PopupImage
+          urlImage={urlImage}
+          popupImageSelector={popupImageSelector}
+        />
+      )}
 
+      {popupEditIsOpened && (
+        <PopupEdit
+          editedProfileData={editedProfileData}
+          editProfileData={editProfileData}
+          togglerPopupEdit={togglerPopupEdit}
+        />
+      )}
+      {popupAddIsOpened && <PopupAdd addPicture={addPicture} togglerPopupAdd={togglerPopupAdd} />}
     </>
   );
-}
+};
 
 export default App;

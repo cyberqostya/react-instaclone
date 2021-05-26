@@ -1,33 +1,19 @@
-import './CardContainer.css';
-import Card from '../Card/Card';
+import "./CardContainer.css";
+import Card from "../Card/Card";
 
 const CardContainer = (props) => {
-  return (
-    <div className="card-container root__section">
-      {props.cards.map((item, index) => {
-        return <Card 
-          name={item.name} 
-          url={item.url} 
-          key={index} 
-          setImageUrl={props.setImageUrl} 
-          setPopupIsOpened={props.setPopupIsOpened}
-          setVarietyOfPopup={props.setVarietyOfPopup}
-        />
-      })}
-      {props.cardsArray && props.cardsArray.map((item, index) => {
-        return (
-        <Card 
-          name={item.name} 
-          url={item.url}
-          key={index}
-          setImageUrl={props.setImageUrl} 
-          setPopupIsOpened={props.setPopupIsOpened}
-          setVarietyOfPopup={props.setVarietyOfPopup}
-        />)
-      })}
-    </div>
-  );
+  const pictures = props.pictures.map((item) => {
+    return (
+      <Card
+        pic={item}
+        key={item.id}
+        getIncompletePictures={props.getIncompletePictures}
+        popupImageSelector={props.popupImageSelector}
+      />
+    );
+  });
 
+  return <section className="card-container root__section">{pictures}</section>;
 };
 
 export default CardContainer;

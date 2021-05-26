@@ -1,38 +1,42 @@
-import React from 'react';
-
-import './Card.css';
+import React from "react";
+import "./Card.css";
 
 const Card = (props) => {
-
+  const { title, url, id } = props.pic;
   const [isLiked, setIsLiked] = React.useState(false);
-  const [isDeleted, setIsDeleted] = React.useState(false);
 
-  const like = () => {
+  const pressLikeButton = () => {
     setIsLiked(!isLiked);
   };
 
-  const deleteCard = (evt) => {
-    evt.stopPropagation();
-    setIsDeleted(true);
-  };
-
-  const urlImageForPopup = () => {
-    props.setImageUrl(props.url);
-    props.setVarietyOfPopup('image');
-    props.setPopupIsOpened(true);
-  };
-
   return (
-    !isDeleted && <div className="card">
-      <div className="card__image" style={ { backgroundImage: `url(${props.url})` } } onClick={urlImageForPopup}>
-        <button className="card__delete-icon" onClick={deleteCard}></button>
+    <div className="card">
+      <div
+        className="card__image"
+        style={{ backgroundImage: `url(${url})` }}
+        onClick={() => {
+          props.popupImageSelector(url);
+        }}
+      >
+        <button
+          className="card__delete-icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            props.getIncompletePictures(id);
+          }}
+        ></button>
       </div>
       <div className="card__description">
-        <p className="card__name">{props.name}</p>
-        <button className={`card__like-icon ${isLiked ? 'card__like-icon_liked' : ''}`} onClick={like}></button>
+        <p className="card__name">{title}</p>
+        <button
+          className={`card__like-icon${
+            isLiked ? " card__like-icon_liked" : ""
+          }`}
+          onClick={pressLikeButton}
+        ></button>
       </div>
     </div>
-  )
+  );
 };
 
 export default Card;
