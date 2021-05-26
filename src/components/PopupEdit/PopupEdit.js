@@ -3,12 +3,14 @@ import React from "react";
 const PopupEdit = (props) => {
   // Проверка валидны ли все поля - вкл/выкл кнопки
   const [buttonIsActive, setButtonIsActive] = React.useState(true);
-  const validationParameter = { name: true, job: true };
+  const [validationParameter, setValidationParameter] = React.useState({ name: true, job: true });
 
   const checkValidity = (block, parameter) => {
-    validationParameter[block] = parameter;
+    const copiedObj = Object.assign(validationParameter);
+    copiedObj[block] = parameter;
+    setValidationParameter(copiedObj);
     Object.values(validationParameter).every((item) => {
-      return item;
+      return !!item;
     })
       ? setButtonIsActive(true)
       : setButtonIsActive(false);
@@ -31,7 +33,7 @@ const PopupEdit = (props) => {
     } else {
       e.target.nextSibling.textContent = "";
       parameter = true;
-    }
+    }console.log(e.target.name, parameter)
     checkValidity(e.target.name, parameter);
   };
 

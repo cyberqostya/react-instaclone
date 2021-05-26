@@ -3,12 +3,14 @@ import React from "react";
 const PopupAdd = (props) => {
   // Проверка валидны ли все поля - вкл/выкл кнопки
   const [buttonIsActive, setButtonIsActive] = React.useState(false);
-  const validationParameter = { title: false, url: false };
+  const [validationParameter, setValidationParameter] = React.useState({ title: false, url: false });
 
   const checkValidity = (block, parameter) => {
-    validationParameter[block] = parameter;
+    const copiedObj = Object.assign(validationParameter);
+    copiedObj[block] = parameter;
+    setValidationParameter(copiedObj);
     Object.values(validationParameter).every((item) => {
-      return item;
+      return !!item;
     })
       ? setButtonIsActive(true)
       : setButtonIsActive(false);
